@@ -7,6 +7,28 @@
 npx skills add breezesamuel/agent-skills
 ```
 
+## 立刻可用的在线端点（都已实测）
+
+| 端点 | 用途 | 实测 |
+|---|---|---|
+| `https://mcp.highkingflower.com/mcp` | MCP（streamable HTTP）→ Claude / Cursor / OpenCode 直接挂 | initialize → tools/list → tools/call 全通 |
+| `https://agentauditor.highkingflower.com` | x402 按次付费的审计端点（$0.0025/次） | 无支付头 → 402（付费墙生效） |
+| `https://pay.highkingflower.com` | 零点击收银台（弹窗支付 + 自动回跳 + 自动确认） | 真实 PayPal 建单 + approve 页可达 |
+
+MCP 客户端配置（Claude Desktop / Cursor / OpenCode 通用）：
+
+```json
+{
+  "mcpServers": {
+    "approval-risk-auditor": {
+      "url": "https://mcp.highkingflower.com/mcp"
+    }
+  }
+}
+```
+
+工具：`audit_approvals(wallet, {stale_after_days?, top_tokens?})` → `{summary, approvals, risk_flags, revoke_tx_data}`
+
 ## 包含的 skills
 
 | Skill | 解决什么 | 状态 |
